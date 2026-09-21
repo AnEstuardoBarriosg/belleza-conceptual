@@ -1,71 +1,49 @@
 # Belleza Conceptual - DEVOPS 1
 
-Repositorio base para la implementación DEVOPS 1 de la tienda en línea de Belleza Conceptual.
+Repositorio correspondiente a la implementación DEVOPS 1 de la tienda en línea de Belleza Conceptual.
+
+El proyecto utiliza una arquitectura basada en servicios contenerizados mediante Docker, con PostgreSQL como base de datos principal, Redis como servicio de caché y Azure DevOps para la planificación, integración continua y gestión de pruebas.
 
 ## Componentes
 
-- `auth-service`: usuarios y roles.
-- `catalog-service`: catálogo, productos e inventario.
-- `orders-service`: pedidos y seguimiento.
+- `auth-service`: gestión de usuarios y roles.
+- `catalog-service`: catálogo de productos e inventario.
+- `orders-service`: gestión de pedidos y seguimiento.
 - `payments-service`: consulta y gestión de pagos.
-- PostgreSQL: persistencia principal.
-- Redis: caché temporal del catálogo.
+- PostgreSQL: persistencia principal del sistema.
+- Redis: almacenamiento temporal y caché del catálogo.
+
+## Tecnologías
+
+- Node.js
+- Express
+- PostgreSQL
+- Redis
+- Docker
+- Docker Compose
+- Git
+- GitHub
+- Azure DevOps
+- Azure Boards
+- Azure Repos
+- Azure Pipelines
+- Azure Test Plans
 
 ## Requisitos
 
+Para ejecutar el proyecto localmente se requiere:
+
 - Git
-- Docker Desktop con Docker Compose
+- Docker Desktop
+- Docker Compose
 
-## Inicio rápido
+## Configuración inicial
 
-1. Crear el archivo local de variables:
+Clonar el repositorio y ubicarse en la carpeta principal del proyecto.
 
-   ```bash
-   cp .env.example .env
-   ```
+Crear el archivo local de variables de entorno a partir de `.env.example`.
 
-2. Editar `.env` y asignar una contraseña local a PostgreSQL.
+En PowerShell:
 
-3. Levantar la solución:
-
-   ```bash
-   docker compose up --build -d
-   ```
-
-4. Revisar contenedores:
-
-   ```bash
-   docker compose ps
-   ```
-
-## Servicios
-
-| Servicio | Puerto | Verificación |
-|---|---:|---|
-| Auth | 3001 | `http://localhost:3001/health` |
-| Catalog | 3002 | `http://localhost:3002/health` |
-| Orders | 3003 | `http://localhost:3003/health` |
-| Payments | 3004 | `http://localhost:3004/health` |
-| PostgreSQL | 5432 | Base `belleza_conceptual` |
-| Redis | 6379 | Redis |
-
-## Endpoints iniciales
-
-- `GET /auth/roles`
-- `GET /products`
-- `GET /products/:id/stock`
-- `GET /orders/:id`
-- `GET /orders/:id/history`
-- `GET /payments/:orderId`
-
-## Detener el entorno
-
-```bash
-docker compose down
-```
-
-Para eliminar también los volúmenes de desarrollo:
-
-```bash
-docker compose down -v
-```
+```powershell
+Copy-Item .env.example .env
