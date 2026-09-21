@@ -1,0 +1,53 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '22.x'
+    displayName: 'Configurar Node.js'
+
+  - script: |
+      cd src/auth-service
+      npm install
+      npm test
+    displayName: 'Probar auth-service'
+
+  - script: |
+      cd src/catalog-service
+      npm install
+      npm test
+    displayName: 'Probar catalog-service'
+
+  - script: |
+      cd src/orders-service
+      npm install
+      npm test
+    displayName: 'Probar orders-service'
+
+  - script: |
+      cd src/payments-service
+      npm install
+      npm test
+    displayName: 'Probar payments-service'
+
+  - script: |
+      docker build -t belleza-auth:ci src/auth-service
+    displayName: 'Construir imagen auth-service'
+
+  - script: |
+      docker build -t belleza-catalog:ci src/catalog-service
+    displayName: 'Construir imagen catalog-service'
+
+  - script: |
+      docker build -t belleza-orders:ci src/orders-service
+    displayName: 'Construir imagen orders-service'
+
+  - script: |
+      docker build -t belleza-payments:ci src/payments-service
+    displayName: 'Construir imagen payments-service'
