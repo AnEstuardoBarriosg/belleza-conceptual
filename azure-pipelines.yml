@@ -64,7 +64,7 @@ steps:
   - task: AzureWebApp@1
     displayName: 'Desplegar auth-service en Azure App Service'
     inputs:
-      azureSubscription: 'sc-belleza-conceptual-azure'
+      azureSubscription: 'sp-belleza-conceptual-devops'
       appType: 'webAppLinux'
       appName: 'app-belleza-conceptual-api'
       package: '$(Build.ArtifactStagingDirectory)/auth-service.zip'
