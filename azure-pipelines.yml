@@ -52,20 +52,20 @@ steps:
       docker build -t belleza-payments:ci src/payments-service
     displayName: 'Construir imagen payments-service'
 
-    - task: ArchiveFiles@2
-  displayName: 'Empaquetar auth-service'
-  inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)/src/auth-service'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/auth-service.zip'
-    replaceExistingArchive: true
+  - task: ArchiveFiles@2
+    displayName: 'Empaquetar auth-service'
+    inputs:
+      rootFolderOrFile: '$(Build.SourcesDirectory)/src/auth-service'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/auth-service.zip'
+      replaceExistingArchive: true
 
-- task: AzureWebApp@1
-  displayName: 'Desplegar auth-service en Azure App Service'
-  inputs:
-    azureSubscription: 'sc-belleza-conceptual-azure'
-    appType: 'webAppLinux'
-    appName: 'app-belleza-conceptual-api'
-    package: '$(Build.ArtifactStagingDirectory)/auth-service.zip'
-    runtimeStack: 'NODE|22-lts'
+  - task: AzureWebApp@1
+    displayName: 'Desplegar auth-service en Azure App Service'
+    inputs:
+      azureSubscription: 'sc-belleza-conceptual-azure'
+      appType: 'webAppLinux'
+      appName: 'app-belleza-conceptual-api'
+      package: '$(Build.ArtifactStagingDirectory)/auth-service.zip'
+      runtimeStack: 'NODE|22-lts'
