@@ -341,7 +341,7 @@ DECLARE
 BEGIN
     SELECT cantidad_disponible
       INTO v_stock
-      FROM inventario
+      FROM belleza_conceptual.inventario
      WHERE id_producto = p_id_producto;
 
     RETURN COALESCE(v_stock, 0);
@@ -560,7 +560,7 @@ BEGIN
             RAISE EXCEPTION 'El producto % no existe o está inactivo', v_id_producto;
         END IF;
 
-        v_stock := fn_stock_disponible(v_id_producto);
+        v_stock := belleza_conceptual.fn_stock_disponible(v_id_producto);
 
         IF v_stock < v_cantidad THEN
             RAISE EXCEPTION
@@ -878,3 +878,35 @@ VALUES
     ('Administrador', 'Administración general de la tienda en línea'),
     ('Personal de ventas', 'Seguimiento de pedidos, pagos y atención comercial'),
     ('Inventario', 'Gestión y actualización de existencias');
+
+
+-- ============================================================
+-- DATOS DEMO PARA CATÁLOGO Y PRUEBAS FUNCIONALES
+-- ============================================================
+
+INSERT INTO belleza_conceptual.categoria
+(nombre, descripcion, estado)
+VALUES
+('Cuidado facial', 'Productos para limpieza, hidratacion y cuidado del rostro', true),
+('Maquillaje', 'Productos cosmeticos para rostro, ojos y labios', true),
+('Cuidado capilar', 'Productos para limpieza, tratamiento y cuidado del cabello', true);
+
+INSERT INTO belleza_conceptual.producto
+(id_categoria, nombre, descripcion, precio, estado_activo)
+VALUES
+(1, 'Limpiador Facial', 'Limpiador suave para uso diario', 85.00, true),
+(1, 'Crema Hidratante', 'Crema hidratante para rostro', 120.00, true),
+(2, 'Labial Mate', 'Labial de acabado mate', 75.00, true),
+(2, 'Base Liquida', 'Base liquida de cobertura media', 145.00, true),
+(3, 'Shampoo Reparador', 'Shampoo para cabello seco o danado', 95.00, true),
+(3, 'Tratamiento Capilar', 'Tratamiento nutritivo para el cabello', 135.00, true);
+
+INSERT INTO belleza_conceptual.inventario
+(id_producto, cantidad_disponible)
+VALUES
+(1, 20),
+(2, 15),
+(3, 30),
+(4, 10),
+(5, 25),
+(6, 12);
